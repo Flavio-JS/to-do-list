@@ -1,10 +1,13 @@
 import { NextPage } from "next";
+import { Header, PaginaInicial } from "./style";
 
 const HomePage: NextPage = () => {
   return (
-    <div>
-      <p>LOGIN PAGE</p>
-    </div>
+    <PaginaInicial>
+      <Header>
+        <h1>TO DO | YOUR LISTS</h1>
+      </Header>
+    </PaginaInicial>
   );
 };
 
