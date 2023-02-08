@@ -19,10 +19,12 @@ const DefaultTheme = {
     dark600: "#462730",
   },
   font: {
+    weight: {
     bold: 700,
     semiBold: 600,
     medium: 500,
     regular: 400,
+  },
     size: {
       xxxs: "0.625rem" /* 10px */,
       xxs: "0.75rem" /* 12px */,
@@ -37,6 +39,7 @@ const DefaultTheme = {
       giant: "4.5rem" /* 72px */,
       giant1: "5rem" /* 80px */,
       giant2: "5.5rem" /* 88px */,
+      giant3: "128px"
     },
     lineHeight: {
       default: "110%",

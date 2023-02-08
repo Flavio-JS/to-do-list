@@ -1,4 +1,5 @@
 import PlusCircle from "@/components/Icons/PlusCircle";
+import MainText from "@/components/Main/MainText";
 import { NextPage } from "next";
 import { Header, PaginaInicial, HeaderButton } from "./style";
 
@@ -11,6 +12,7 @@ const HomePage: NextPage = () => {
           Add new List
         </HeaderButton>
       </Header>
+      <MainText />
     </PaginaInicial>
   );
 };
