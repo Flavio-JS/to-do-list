@@ -1,11 +1,13 @@
-import { MainTextWrapper, GradientBorder } from "./MainText.styles";
+import { MainTextWrapper, RainbowRectangle } from "./MainText.styles";
 
 function MainText({}) {
   return (
     <MainTextWrapper>
-      <h1>TO-DO LIST</h1>
-      <p>design by eduardamirelly</p>
-      <GradientBorder />
+      <RainbowRectangle />
+      <h1>
+        TO-DO LIST
+        <p>design by eduardamirelly</p>
+      </h1>
     </MainTextWrapper>
   );
 }

@@ -30,6 +30,7 @@ const DefaultTheme = {
       xxs: "0.75rem" /* 12px */,
       xs: "0.875rem" /* 14px */,
       sm: "1rem" /* 16px */,
+      mm: '20px',
       md: "1.5rem" /* 24px */,
       l: "2rem" /* 32px */,
       xl: "2.5rem" /* 40px */,
