@@ -16,7 +16,7 @@ const DefaultTheme = {
     dark900: "#241722",
     dark800: "#352432",
     dark700: "#462730",
-    dark600: "#462730",
+    dark600: "#632329",
   },
   font: {
     weight: {

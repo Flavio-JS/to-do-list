@@ -1,19 +1,25 @@
+import Header from "@/components/Header/Header";
 import PlusCircle from "@/components/Icons/PlusCircle";
 import ListCard from "@/components/ListCard/ListCard";
 import MainText from "@/components/Main/MainText";
 import { NextPage } from "next";
-import { Header, PaginaInicial, HeaderButton } from "./style";
+import { PaginaInicial } from "./style";
+
+const mockValuesTest = [
+  "Lista do marcelol",
+  "Lista 2",
+  "Lista 3",
+  "Lista 4",
+  "Lista 5",
+];
 
 const HomePage: NextPage = () => {
   return (
     <PaginaInicial>
-      <Header>
-        <h1>TO DO | YOUR LISTS</h1>
-        <HeaderButton startIcon={<PlusCircle />} variant="text">
-          Add new List
-        </HeaderButton>
-      </Header>
-      <ListCard />
+      <Header />
+      {mockValuesTest.map((lista) => (
+        <ListCard nameList={lista} />
+      ))}
     </PaginaInicial>
   );
 };
