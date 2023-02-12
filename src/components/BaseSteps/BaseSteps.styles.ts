@@ -24,13 +24,13 @@ interface IBaseStepNumberCircleProps {
 export const BaseStepNumberCircle = styled.div<IBaseStepNumberCircleProps>`
   ${({ theme, currentStep, stepKey }) => css`
     background-color: ${stepKey <= currentStep
-      ? theme.colors.supportPrimary.dark
+      ? theme.colors.dark600
       : "#fff"};
     color: ${stepKey <= currentStep
       ? "#fff"
-      : `${theme.colors.supportPrimary.dark}`};
+      : `${theme.colors.dark600}`};
     border-radius: 50%;
-    border: solid 1px ${theme.colors.supportPrimary.dark};
+    border: solid 1px ${theme.colors.dark600};
     width: 26px;
     height: 26px;
     font-size: ${theme.font.size.xxs};
@@ -51,6 +51,6 @@ export const SplitBar = styled.div<ISplitBarProps>`
   ${({ theme, vertical }) => css`
     height: ${vertical ? "22px" : "1px"};
     width: ${vertical ? "1px" : "22px"};
-    background-color: ${theme.colors.supportPrimary.dark};
+    background-color: ${theme.colors.dark600};
   `}
 `;

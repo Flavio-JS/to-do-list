@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
-import { BaseButtonWrapper, Test } from "./BaseButton.styles";
+import { BaseButtonWrapper } from "./BaseButton.styles";
 
 interface IBaseButtonProps
   extends DetailedHTMLProps<
@@ -25,7 +25,7 @@ function BaseButton({
   ...props
 }: IBaseButtonProps) {
   return (
-    /* <BaseButtonWrapper
+    <BaseButtonWrapper
       height={height}
       width={width}
       color={color}
@@ -36,10 +36,6 @@ function BaseButton({
       {props.children}
       {endIcon}
     </BaseButtonWrapper>
-  */
-    <Test>
-      <h1>flavio é lindu</h1>
-    </Test>
   );
 }
 

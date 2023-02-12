@@ -57,3 +57,6 @@ ci:description
 ```
 refactor:description
 ```
+
+Design
+https://www.figma.com/file/EcHJTc6vYw6cB0fgFJKT8U/To-do-List-%5BShort-Project%5D-(Community)?node-id=142%3A220&t=i3qAyZNdeeWwMhKW-0
