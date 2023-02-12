@@ -21,7 +21,17 @@ export const HeaderWrapper = styled.header`
 
 export const HeaderButton = styled(BaseButton)`
   ${({ theme }) => css`
-    color: #f25551;
+    color: ${theme.colors.primary};
     gap: 16px;
   `}
 `;
+
+export const HeaderButtonWrapper = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: 24px;
+  `}
+`;
+
+
+

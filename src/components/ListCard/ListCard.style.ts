@@ -8,6 +8,8 @@ export const ListCardWrapper = styled.div`
     height: 60px;
     width: 100%;
     transition: background-color 0.5s;
+    box-shadow: 0px 4px 4px rgba(17, 17, 28, 0.6);
+    margin:15px;
     
     svg{
         margin-right:20px;

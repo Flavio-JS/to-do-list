@@ -14,9 +14,9 @@ const Setinha = ({ ...props }: SVGProps<SVGSVGElement>) => {
         <path
           d="M12 6L22 16L12 26"
           stroke="#FEEDE1"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
     </svg>

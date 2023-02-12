@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Setinha from "../Icons/Setinha";
 import Trash from "../Icons/Trash";
 import {
@@ -19,7 +20,9 @@ function ListCard({ nameList }: IListCardProps) {
         </RectangleRed>
         <p>{nameList}</p>
       </NameCardContainer>
-      <Setinha />
+      <Link href={`lista/${nameList}`}>
+        <Setinha />
+      </Link>
     </ListCardWrapper>
   );
 }

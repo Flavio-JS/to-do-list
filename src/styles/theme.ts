@@ -9,7 +9,7 @@ const DefaultTheme = {
     xxxl: "1536px",
   },
   colors: {
-    primary: "#f2551",
+    primary: "#F25551",
     second200: "#feede1",
     second100: "#fffbff",
     greenGradient: "#50f283",

@@ -7,7 +7,7 @@ import { PaginaInicial } from "./style";
 
 const mockValuesTest = [
   "Lista do marcelol",
-  "Lista 2",
+  "Lista do FJFILHO007",
   "Lista 3",
   "Lista 4",
   "Lista 5",
@@ -16,9 +16,9 @@ const mockValuesTest = [
 const HomePage: NextPage = () => {
   return (
     <PaginaInicial>
-      <Header />
+      <Header title={"TO DO | YOUR LISTS"} isListHeader={false} />
       {mockValuesTest.map((lista) => (
-        <ListCard nameList={lista} />
+        <ListCard key={lista} nameList={lista} />
       ))}
     </PaginaInicial>
   );
