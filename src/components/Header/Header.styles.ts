@@ -23,6 +23,13 @@ export const HeaderButton = styled(BaseButton)`
   ${({ theme }) => css`
     color: ${theme.colors.primary};
     gap: 16px;
+    font-size: 18px;
+    padding: 16px 36px;
+    border-radius: 40px;
+
+    :hover {
+      background-color: ${theme.colors.dark700};
+    }
   `}
 `;
 
@@ -32,6 +39,3 @@ export const HeaderButtonWrapper = styled.div`
     gap: 24px;
   `}
 `;
-
-
-

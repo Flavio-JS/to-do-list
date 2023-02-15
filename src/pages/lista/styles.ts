@@ -9,5 +9,8 @@ export const PaginaInicial = styled.section`
   `}
 `;
 
-
-
+export const CheckListsWrapper = styled.div`
+  ${({ theme }) => css`
+    padding: 30px 0px;
+  `}
+`;
