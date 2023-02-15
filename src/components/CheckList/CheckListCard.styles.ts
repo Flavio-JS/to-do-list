@@ -10,6 +10,7 @@ export const CheckListCardWrapper = styled.div`
     height: 60px;
     width: 100%;
     background-color: ${theme.colors.dark800};
+    margin-top: 20px;
 
     :hover {
       background-color: ${theme.colors.dark700};

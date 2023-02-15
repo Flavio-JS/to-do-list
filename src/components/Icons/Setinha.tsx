@@ -13,7 +13,7 @@ const Setinha = ({ ...props }: SVGProps<SVGSVGElement>) => {
       <g opacity="0.8">
         <path
           d="M12 6L22 16L12 26"
-          stroke="#FEEDE1"
+          stroke={props.color ?? "#FEEDE1"}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
