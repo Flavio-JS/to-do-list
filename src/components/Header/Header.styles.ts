@@ -39,3 +39,10 @@ export const HeaderButtonWrapper = styled.div`
     gap: 24px;
   `}
 `;
+
+export const ListHeaderTitleWrapper = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    gap: 24px;
+  `}
+`;

@@ -1,5 +1,6 @@
 import CheckListCard from "@/components/CheckList/CheckListCard";
 import Header from "@/components/Header/Header";
+import EmptyToDoListSVG from "@/components/Icons/EmptyToDoListSVG";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { PaginaInicial } from "../style";
@@ -12,7 +13,7 @@ const NameListPage: NextPage = () => {
     <PaginaInicial>
       <Header title={query.nameList} isListHeader={true} />
       <CheckListsWrapper>
-        <CheckListCard nameList={query.nameList} />
+        <EmptyToDoListSVG />
       </CheckListsWrapper>
     </PaginaInicial>
   );

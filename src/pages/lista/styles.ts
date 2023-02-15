@@ -1,3 +1,4 @@
+import ArrowLeftIcon from "@/components/Icons/ArrowLeftIcon";
 import styled, { css } from "styled-components";
 
 export const PaginaInicial = styled.section`
@@ -12,5 +13,23 @@ export const PaginaInicial = styled.section`
 export const CheckListsWrapper = styled.div`
   ${({ theme }) => css`
     padding: 30px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    svg {
+      margin-top: 87px;
+    }
+  `}
+`;
+
+export const HeaderLeftArrow = styled(ArrowLeftIcon)`
+  ${({ theme }) => css`
+    :hover {
+      cursor: pointer;
+      path {
+        stroke: ${theme.colors.primary};
+      }
+    }
   `}
 `;
