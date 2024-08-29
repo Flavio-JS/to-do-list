@@ -4,51 +4,61 @@ import { NextResponse } from "next/server";
 import { env } from "process";
 
 const prisma = new PrismaClient();
-export async function getUserService() {
+export async function getUsers() {
   const users = await prisma.user.findMany();
   return users;
 }
 
-export async function createUserService(
-  email: string,
-  senha: string,
-  confirmarSenha: string
-) {
+export type CreateUserProps = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export async function createUser({
+  name,
+  email,
+  password,
+  confirmPassword,
+}: CreateUserProps) {
   const existingUser = await prisma.user.findUnique({
     where: { email },
   });
 
   if (existingUser) {
-    return NextResponse.json({ error: "Usuário já existe." }, { status: 400 });
+    return NextResponse.json(
+      { error: "User already exists." },
+      { status: 400 }
+    );
   }
 
-  if (senha !== confirmarSenha) {
+  if (password !== confirmPassword) {
     return NextResponse.json(
-      { error: "Senhas não conferem." },
+      { error: "Passwords don't match." },
       { status: 400 }
     );
   }
 
   const hashPassword = env.HASH_PASSWORD;
   if (hashPassword === undefined) {
-    return NextResponse.json({ error: "Chave inválida." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid hash key." }, { status: 400 });
   }
 
   let senhaHash;
   if (isNaN(Number(hashPassword))) {
-    // Use hashPassword as a salt string
-    senhaHash = await bcrypt.hash(senha, hashPassword);
+    senhaHash = await bcrypt.hash(password, hashPassword);
   } else {
-    // Use hashPassword as the number of salt rounds
-    senhaHash = await bcrypt.hash(senha, Number(hashPassword));
+    senhaHash = await bcrypt.hash(password, Number(hashPassword));
   }
 
-  // Cria um novo usuário
   const newUser = await prisma.user.create({
     data: {
       email,
-      senha: senhaHash,
+      password: senhaHash,
+      name,
     },
   });
+
   return newUser;
 }
