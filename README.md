@@ -37,7 +37,7 @@ npm install
 
 3. Crie um arquivo `.env` com base no arquivo `.env.example` que está no projeto.
 
-4. No arquivo `.env`, adicione uma chave segura (como um UUID) à variável `HASH_PASSWORD`:
+4. No arquivo `.env`, adicione uma chave segura (como um UUID) à variável `HASH_SALT`:
 
 5. Execute as migrações do banco de dados:
 

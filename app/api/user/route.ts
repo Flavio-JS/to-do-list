@@ -13,13 +13,23 @@ export async function POST(req: Request) {
   try {
     const { name, email, password, confirmPassword } = await req.json();
 
-    const user = await createUser({ name, email, password, confirmPassword });
+    const response = await createUser({
+      name,
+      email,
+      password,
+      confirmPassword,
+    });
 
-    if ("error" in user) {
-      NextResponse.json({ error: "Error creating user." }, { status: 500 });
+    if (response instanceof NextResponse) {
+      const errorData = await response.json();
+
+      return NextResponse.json(
+        { error: errorData.error },
+        { status: 400 }
+      );;
     }
 
-    return NextResponse.json({ user });
+    return NextResponse.json({ user: response });
   } catch (error) {
     return NextResponse.json(
       { error: "Error creating user." },

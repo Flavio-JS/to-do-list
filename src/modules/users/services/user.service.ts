@@ -1,3 +1,4 @@
+import { emailRegex } from "@/src/utils/regex";
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
@@ -29,7 +30,7 @@ export async function createUser({
   if (existingUser) {
     return NextResponse.json(
       { error: "User already exists." },
-      { status: 400 }
+      { status: 409 }
     );
   }
 
@@ -40,17 +41,13 @@ export async function createUser({
     );
   }
 
-  const hashPassword = env.HASH_PASSWORD;
-  if (hashPassword === undefined) {
+  const hashSalt = env.HASH_SALT;
+
+  if (hashSalt === undefined || isNaN(Number(hashSalt))) {
     return NextResponse.json({ error: "Invalid hash key." }, { status: 400 });
   }
 
-  let senhaHash;
-  if (isNaN(Number(hashPassword))) {
-    senhaHash = await bcrypt.hash(password, hashPassword);
-  } else {
-    senhaHash = await bcrypt.hash(password, Number(hashPassword));
-  }
+  const senhaHash = await bcrypt.hash(password, Number(hashSalt));
 
   const newUser = await prisma.user.create({
     data: {
