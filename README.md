@@ -37,21 +37,19 @@ npm install
 
 3. Crie um arquivo `.env` com base no arquivo `.env.example` que está no projeto.
 
-4. No arquivo `.env`, adicione uma chave segura (como um UUID) à variável `HASH_SALT`:
-
-5. Execute as migrações do banco de dados:
+4. Execute as migrações do banco de dados:
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-6. Gere os arquivos do Prisma:
+5. Gere os arquivos do Prisma:
 
 ```bash
-  npx prisma migrate dev --name init
+  npx prisma generate
 ```
 
-7.Inicie o servidor de desenvolvimento:
+6.Inicie o servidor de desenvolvimento:
 
 ```bash
   npm run dev

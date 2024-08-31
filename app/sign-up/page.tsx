@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState<string | undefined>();
+  const [email, setEmail] = useState<string | undefined>();
+  const [password, setPassword] = useState<string | undefined>();
+  const [confirmPassword, setConfirmPassword] = useState<string | undefined>();
 
   const router = useRouter();
 
@@ -26,12 +26,13 @@ const SignUp = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    mutation.mutate({
-      name,
-      email,
-      password,
-      confirmPassword,
-    });
+    if (name && email && password && confirmPassword)
+      mutation.mutate({
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
   };
 
   return (
@@ -43,7 +44,7 @@ const SignUp = () => {
             <p className="text-gray-600">Create your account</p>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="mb-4">
               <label
                 className="mb-2 block text-sm font-bold text-gray-700"

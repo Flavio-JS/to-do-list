@@ -1,8 +1,8 @@
-import { emailRegex } from "@/src/utils/regex";
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 import { env } from "process";
+import * as jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 export async function getUsers() {
@@ -58,4 +58,52 @@ export async function createUser({
   });
 
   return newUser;
+}
+
+type LoginProps = {
+  email: string;
+  password: string;
+};
+
+export async function loginUser({ email, password }: LoginProps) {
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    return NextResponse.json(
+      { error: "Invalid email or password." },
+      { status: 401 }
+    );
+  }
+
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    return NextResponse.json(
+      { error: "Invalid email or password." },
+      { status: 401 }
+    );
+  }
+
+  const secretKey = process.env.JWT_SECRET;
+
+  if (!secretKey) {
+    return NextResponse.json(
+      { error: "Internal server error." },
+      { status: 500 }
+    );
+  }
+
+  const token = jwt.sign(
+    {
+      userId: user.userId,
+      email: user.email,
+      name: user.name,
+    },
+    secretKey,
+    { expiresIn: "1h" }
+  );
+
+  return token;
 }
