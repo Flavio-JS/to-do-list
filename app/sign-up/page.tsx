@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/src/components/SignUpForm/SignUpForm";
+import { SignUpForm } from "@/src/components/Forms/SignUpForm/SignUpForm";
 import GirlLaptop from "@/src/Icons/GirlLaptop";
 import Link from "next/link";
 
