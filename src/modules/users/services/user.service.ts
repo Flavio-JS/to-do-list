@@ -95,6 +95,10 @@ export async function loginUser({ email, password }: LoginProps) {
     );
   }
 
+  const sessionTime = process.env.SESSION_TIME
+    ? Number(process.env.SESSION_TIME)
+    : 60 * 60;
+
   const token = jwt.sign(
     {
       userId: user.userId,
@@ -102,7 +106,7 @@ export async function loginUser({ email, password }: LoginProps) {
       name: user.name,
     },
     secretKey,
-    { expiresIn: "1h" }
+    { expiresIn: sessionTime }
   );
 
   return token;

@@ -5,13 +5,13 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
 
-    const response = await loginUser({
+    const token = await loginUser({
       email,
       password,
     });
 
-    if (response instanceof NextResponse) {
-      const errorData = await response.json();
+    if (token instanceof NextResponse) {
+      const errorData = await token.json();
 
       return NextResponse.json({ error: errorData.error }, { status: 400 });
     }
@@ -22,18 +22,15 @@ export async function POST(req: Request) {
       ? Number(process.env.SESSION_TIME)
       : 60 * 60;
 
-    responseCookie.cookies.set("auth_token", response.toString(), {
+    responseCookie.cookies.set("auth_token", token.toString(), {
       httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       path: "/",
       maxAge: sessionTime,
     });
 
-    return responseCookie;
+    return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
-    return NextResponse.json(
-      { error: "Error creating user." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Error login user." }, { status: 500 });
   }
 }
