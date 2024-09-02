@@ -1,6 +1,5 @@
 import { SignInForm } from "@/src/components/Forms/SignInForm/SignInForm";
 import GirlLaptop from "@/src/Icons/GirlLaptop";
-import { useLoginUser } from "@/src/modules/users/use-querys/useLoginUser";
 import Link from "next/link";
 
 const SignIn = () => {

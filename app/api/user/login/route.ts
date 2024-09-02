@@ -12,11 +12,10 @@ export async function POST(req: Request) {
 
     if (token instanceof NextResponse) {
       const errorData = await token.json();
-
       return NextResponse.json({ error: errorData.error }, { status: 400 });
     }
 
-    const responseCookie = NextResponse.json({ success: true });
+    const responseCookie = NextResponse.json({ token, success: true });
 
     const sessionTime = process.env.SESSION_TIME
       ? Number(process.env.SESSION_TIME)
@@ -29,7 +28,7 @@ export async function POST(req: Request) {
       maxAge: sessionTime,
     });
 
-    return NextResponse.json({ token }, { status: 200 });
+    return responseCookie;
   } catch (error) {
     return NextResponse.json({ error: "Error login user." }, { status: 500 });
   }
