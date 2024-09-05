@@ -1,6 +1,6 @@
 import {
-  getListsByUserId,
-  GetListsByUserIdProps,
+  createList,
+  CreateListProps,
 } from "@/src/modules/lists/services/list.service";
 import { NextResponse } from "next/server";
 
@@ -15,33 +15,31 @@ export async function POST(req: Request) {
       );
     }
 
-    const { userId }: GetListsByUserIdProps = await req.json();
+    const { userId, listName, priority }: CreateListProps = await req.json();
 
-    if (!userId) {
+    if (!userId || !listName) {
       return NextResponse.json(
-        { error: "Missing required field: userId" },
+        { error: "Missing required fields: userId and listName" },
         { status: 400 }
       );
     }
 
-    const lists = await getListsByUserId({ userId, authToken });
+    const list = await createList({ userId, listName, priority, authToken });
 
-    return NextResponse.json({ lists });
+    return NextResponse.json(list, { status: 201 });
   } catch (error: any) {
     if (error.message === "Invalid token") {
-      return NextResponse.json(
-        { error: "Invalid token" },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: "Invalid token" }, { status: 403 });
     }
 
-    if (error.message === "Token expired") {
+    if (error.message === "Token has expired") {
       return NextResponse.json(
         { error: "Token has expired, please log in again" },
         { status: 401 }
       );
     }
 
+    console.error(error);
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });
   }
 }
