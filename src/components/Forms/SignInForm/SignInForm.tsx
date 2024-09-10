@@ -13,7 +13,7 @@ export const SignInForm = () => {
 
   const mutation = useLoginUser({
     onSuccess: () => {
-      router.push("/home");
+      router.push("/todo-lists");
     },
     onError: (error) => {
       console.error(error);

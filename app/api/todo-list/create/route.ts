@@ -1,7 +1,7 @@
 import {
   createList,
   CreateListProps,
-} from "@/src/modules/lists/services/list.service";
+} from "@/src/modules/todo-lists/services/todo-list.service";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {

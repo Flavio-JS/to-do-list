@@ -1,7 +1,7 @@
 import {
   getListsByUserId,
   GetListsByUserIdProps,
-} from "@/src/modules/lists/services/list.service";
+} from "@/src/modules/todo-lists/services/todo-list.service";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -26,20 +26,22 @@ export async function POST(req: Request) {
 
     const lists = await getListsByUserId({ userId, authToken });
 
-    return NextResponse.json({ lists });
+    return NextResponse.json(lists);
   } catch (error: any) {
-    if (error.message === "Invalid token") {
-      return NextResponse.json(
-        { error: "Invalid token" },
-        { status: 403 }
-      );
-    }
-
-    if (error.message === "Token expired") {
+    console.error(error);
+    if (error.code === "ERR_JWT_EXPIRED") {
       return NextResponse.json(
         { error: "Token has expired, please log in again" },
         { status: 401 }
       );
+    }
+
+    if (error.code === "ERR_JWS_SIGNATURE_VERIFICATION_FAILED") {
+      return NextResponse.json({ error: "Invalid Token" }, { status: 401 });
+    }
+
+    if (error.message === "Invalid token") {
+      return NextResponse.json({ error: "Invalid token" }, { status: 403 });
     }
 
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });

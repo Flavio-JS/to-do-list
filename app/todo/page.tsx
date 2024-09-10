@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function Todo() {
   return (
     <main className="flex h-full flex-1 flex-col">
-      <header className="mt-16 flex items-center justify-between border-b-2 border-[#54353ECC] pb-4">
+      <header className="flex items-center justify-between border-b-2 border-[#54353ECC] pb-4">
         <h1 className="font-poppins flex max-w-xs items-center gap-6 text-lg font-bold text-[#FEEDE1]">
           <Link href={"/"} className="w-max">
             <ArrowLeftIcon />

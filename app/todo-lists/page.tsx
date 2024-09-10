@@ -1,11 +1,11 @@
 import { Button } from "@/src/components/Button/Button";
+import { TodoListsSection } from "@/src/components/TodoListSection/TodoListsSection";
 import PlusCircle from "@/src/Icons/PlusCircle";
-import Rectangle from "@/src/Icons/Rectangle";
 
-export default function Home() {
+export default function TodoListsPage() {
   return (
     <main className="flex h-full flex-1 flex-col">
-      <header className="mt-16 flex justify-between border-b-2 border-[#54353ECC] pb-4">
+      <header className="flex justify-between border-b-2 border-[#54353ECC] pb-4">
         <h1 className="font-poppins text-2xl font-bold text-[#FEEDE1]">
           TO DO | YOUR LISTS
         </h1>
@@ -14,12 +14,7 @@ export default function Home() {
           Add new list
         </Button>
       </header>
-      <section className="relative flex w-full flex-1 items-center justify-center">
-        <h1 className="font-poppins absolute text-center text-6xl font-bold text-[#FEEDE1] md:text-8xl lg:text-9xl">
-          TO-DO LIST
-        </h1>
-        <Rectangle />
-      </section>
+      <TodoListsSection />
     </main>
   );
 }
