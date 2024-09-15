@@ -5,12 +5,20 @@ import { useTodoListsSection } from "@/src/hooks/useTodoListsSection";
 import Rectangle from "@/src/Icons/Rectangle";
 
 export const TodoListsSection = () => {
-  const { todoLists } = useTodoListsSection();
+  const { todoLists, isFetching } = useTodoListsSection();
+
+  if (isFetching) {
+    return (
+      <div className="flex h-full w-full items-center justify-center text-[#FEEDE1]">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <>
       {todoLists && todoLists.length > 0 ? (
-        <section className="relative flex w-full flex-1 flex-col items-center justify-center">
+        <section className="relative flex w-full flex-1 flex-col items-center justify-center overflow-y-auto">
           {todoLists.map((todoList) => (
             <CardList
               key={`${todoList.listName}${todoList.listId}`}

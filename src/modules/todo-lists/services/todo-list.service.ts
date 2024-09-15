@@ -105,7 +105,7 @@ export async function updateList({
     }
     const lsit = await prisma.list.findUnique({ where: { listId } });
 
-    if(!lsit) {
+    if (!lsit) {
       throw new Error("List not found");
     }
 
@@ -120,6 +120,46 @@ export async function updateList({
     });
 
     return updatedList;
+  } catch (error: any) {
+    if (error.code === "ERR_JWT_EXPIRED") {
+      error.message = "Token has expired";
+      error.status = 401;
+    }
+
+    throw error;
+  }
+}
+
+export type DeleteListProps = {
+  listId: number;
+  userId: number;
+  authToken: string;
+};
+
+export async function deleteList({
+  listId,
+  userId,
+  authToken,
+}: DeleteListProps): Promise<void> {
+  try {
+    const { payload } = await jwtVerify(
+      authToken,
+      new TextEncoder().encode(process.env.JWT_SECRET!)
+    );
+
+    if (payload.userId !== userId) {
+      throw new Error("Invalid token");
+    }
+
+    const list = await prisma.list.findMany({ where: { listId } });
+
+    if (!list) {
+      throw new Error("List not found");
+    }
+
+    await prisma.list.delete({
+      where: { listId, userId },
+    });
   } catch (error: any) {
     if (error.code === "ERR_JWT_EXPIRED") {
       error.message = "Token has expired";
