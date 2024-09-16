@@ -131,13 +131,13 @@ export async function updateList({
 }
 
 export type DeleteListProps = {
-  listId: number;
+  listIds: number[];
   userId: number;
   authToken: string;
 };
 
 export async function deleteList({
-  listId,
+  listIds,
   userId,
   authToken,
 }: DeleteListProps): Promise<void> {
@@ -151,14 +151,14 @@ export async function deleteList({
       throw new Error("Invalid token");
     }
 
-    const list = await prisma.list.findMany({ where: { listId } });
+    const lists = await prisma.list.findMany({ where: { listId: { in: listIds } } });
 
-    if (!list) {
-      throw new Error("List not found");
+    if (lists.length !== listIds.length) {
+      throw new Error("Some lists were not found");
     }
 
-    await prisma.list.delete({
-      where: { listId, userId },
+    await prisma.list.deleteMany({
+      where: { listId: { in: listIds }, userId },
     });
   } catch (error: any) {
     if (error.code === "ERR_JWT_EXPIRED") {
@@ -169,3 +169,4 @@ export async function deleteList({
     throw error;
   }
 }
+

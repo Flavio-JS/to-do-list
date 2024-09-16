@@ -18,7 +18,7 @@ export const TodoListsSection = () => {
   return (
     <>
       {todoLists && todoLists.length > 0 ? (
-        <section className="relative flex w-full flex-1 flex-col items-center justify-center overflow-y-auto">
+        <section className="relative flex w-full flex-1 flex-col items-center justify-center">
           {todoLists.map((todoList) => (
             <CardList
               key={`${todoList.listName}${todoList.listId}`}

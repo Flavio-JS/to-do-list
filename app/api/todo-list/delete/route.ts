@@ -15,16 +15,16 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const { listId, userId }: DeleteListProps = await req.json();
+    const { listIds, userId }: DeleteListProps = await req.json();
 
-    if (!listId) {
+    if (!listIds) {
       return NextResponse.json(
         { error: "Missing required field: listId" },
         { status: 400 }
       );
     }
 
-    await deleteList({ listId, userId, authToken });
+    await deleteList({ listIds, userId, authToken });
 
     return NextResponse.json({ status: 200 });
   } catch (error: any) {
