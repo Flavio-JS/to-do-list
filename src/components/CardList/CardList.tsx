@@ -1,7 +1,7 @@
 import EmojiPicker from "emoji-picker-react";
 import { ListType } from "@/src/modules/todo-lists/types/ListType";
 import { useUpdateList } from "@/src/modules/todo-lists/use-querys/useUpdateList";
-import { Check, Pencil } from "lucide-react";
+import { Check, ChevronRight, Pencil } from "lucide-react";
 import { useState } from "react";
 import {
   Select,
@@ -12,6 +12,8 @@ import {
   SelectGroup,
 } from "@/src/components/ui/select";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { DeleteListButton } from "@/src/components/DeleteListButton/DeleteListButton";
 
 type CardListProps = {
   finished: boolean;
@@ -34,7 +36,7 @@ export default function CardList({
   const [selectedPriority, setSelectedPriority] = useState(priority);
   const [finished, setFinished] = useState(initialFinished);
 
-  const mutation = useUpdateList({
+  const updateMutation = useUpdateList({
     onError: (error) => {
       console.error(error);
     },
@@ -53,7 +55,7 @@ export default function CardList({
   };
 
   const handleSave = () => {
-    mutation.mutate({
+    updateMutation.mutate({
       listId: listId,
       userId: userId,
       finished: finished,
@@ -68,7 +70,7 @@ export default function CardList({
     return (
       <div className="w-full p-4">
         <div
-          className={`mb-2 flex cursor-pointer items-center justify-between rounded-md border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} bg-[#2D1B30] p-4 text-white shadow-lg transition-all duration-200`}
+          className={`mb-2 flex items-center justify-between rounded-md border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} bg-[#2D1B30] p-4 text-white shadow-lg transition-all duration-200`}
         >
           <div className="flex items-center">
             <span role="img" aria-label="list" className="mr-2">
@@ -85,7 +87,7 @@ export default function CardList({
                 readOnly
                 checked={finished}
                 onClick={() => {
-                  mutation.mutate({
+                  updateMutation.mutate({
                     listId: listId,
                     userId: userId,
                     finished: finished ? false : true,
@@ -111,6 +113,12 @@ export default function CardList({
             >
               <Pencil />
             </span>
+            <Link
+              className="text-[#FFFBFF] hover:text-[#FEEDE1]"
+              href={`/todo/${listId}`}
+            >
+              <ChevronRight />
+            </Link>
           </div>
         </div>
       </div>
@@ -202,6 +210,13 @@ export default function CardList({
                 </span>
               </label>
             </div>
+
+            <DeleteListButton
+              listId={listId}
+              listName={listName}
+              listEmoji={emoji}
+              userId={userId}
+            />
 
             <span
               className="text-[#FFFBFF] hover:text-[#FEEDE1]"

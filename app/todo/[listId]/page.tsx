@@ -3,11 +3,14 @@
 import { Button } from "@/src/components/Button/Button";
 import { ItemList } from "@/src/components/ItemList/ItemsList";
 import ArrowLeftIcon from "@/src/Icons/ArrowLeftIcon";
-import ButtonMore from "@/src/Icons/ButtonMore";
-import Trash from "@/src/Icons/Trash";
+import { SquarePlus, Trash2 } from "lucide-react";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function Todo() {
+  const { listId } = useParams();
+
   return (
     <main className="flex h-full flex-1 flex-col">
       <header className="flex items-center justify-between border-b-2 border-[#54353ECC] pb-4">
@@ -16,17 +19,17 @@ export default function Todo() {
             <ArrowLeftIcon />
           </Link>
           <span className="max-w-full truncate">
-            😎 Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste,
-            voluptatem.
+            😎 <b>{listId}</b>Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Iste, voluptatem.
           </span>
         </h1>
         <div className="flex gap-6">
-          <Button className="flex h-6 items-center gap-4 text-[#F25551]">
-            <Trash />
+          <Button className="flex h-6 items-center gap-4 text-[#F25551] hover:text-[#a73a38]">
+            <Trash2 />
             Delete List
           </Button>
-          <Button className="flex h-6 items-center gap-4 text-[#F25551]">
-            <ButtonMore />
+          <Button className="flex h-6 items-center gap-4 text-[#F25551] hover:text-[#a73a38]">
+            <SquarePlus />
             Add to-do
           </Button>
         </div>
