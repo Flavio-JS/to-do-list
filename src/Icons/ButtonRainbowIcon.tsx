@@ -17,7 +17,7 @@ const ButtonRainbowIcon = ({ ...props }: SVGProps<SVGSVGElement>) => {
         height="24"
         rx="4"
         stroke="url(#paint0_linear_854_127)"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <defs>
         <linearGradient
@@ -28,9 +28,9 @@ const ButtonRainbowIcon = ({ ...props }: SVGProps<SVGSVGElement>) => {
           y2="24"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#632329" />
-          <stop offset="0.49648" stop-color="#F25551" />
-          <stop offset="1" stop-color="#50F283" stop-opacity="0.8" />
+          <stop stopColor="#632329" />
+          <stop offset="0.49648" stopColor="#F25551" />
+          <stop offset="1" stopColor="#50F283" stopOpacity="0.8" />
         </linearGradient>
       </defs>
     </svg>

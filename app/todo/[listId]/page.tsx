@@ -1,15 +1,28 @@
 "use client";
 
+import { AddNewItemButton } from "@/src/components/AddNewItemButton/AddNewItemButton";
 import { Button } from "@/src/components/Button/Button";
 import { ItemList } from "@/src/components/ItemList/ItemsList";
+import { useAuth } from "@/src/hooks/useAuth";
 import ArrowLeftIcon from "@/src/Icons/ArrowLeftIcon";
-import { SquarePlus, Trash2 } from "lucide-react";
+import EmptyToDoListSVG from "@/src/Icons/EmptyToDoListSVG";
+import { useTodoItems } from "@/src/modules/todo-item/use-querys/useGetTodoItems";
+import { Trash2 } from "lucide-react";
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function Todo() {
   const { listId } = useParams();
+  const { user } = useAuth();
+
+  const { data } = useTodoItems({
+    listId: Number(listId),
+    userId: user?.userId as number,
+    options: {
+      enabled: !!user,
+    },
+  });
 
   return (
     <main className="flex h-full flex-1 flex-col">
@@ -28,15 +41,20 @@ export default function Todo() {
             <Trash2 />
             Delete List
           </Button>
-          <Button className="flex h-6 items-center gap-4 text-[#F25551] hover:text-[#a73a38]">
-            <SquarePlus />
-            Add to-do
-          </Button>
+          <AddNewItemButton listId={Number(listId)} />
         </div>
       </header>
-      <section className="relative flex w-full flex-1 items-center justify-center">
-        <ItemList />
-      </section>
+      {data?.length ? (
+        <section className="relative flex w-full flex-1 flex-col items-center justify-center">
+          {data.map((item) => (
+            <ItemList key={item.itemId} />
+          ))}
+        </section>
+      ) : (
+        <section className="relative flex w-full flex-1 items-center justify-center">
+          <EmptyToDoListSVG />
+        </section>
+      )}
     </main>
   );
 }
