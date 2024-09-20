@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { QueryFnOptions } from "@/src/lib/react-query";
 import { getCookie } from "@/src/utils/getCookies";
+import { fetchTodoListByListId } from "@/src/modules/todo-lists/use-querys/useTodoListByListId";
 
 export type TodoItem = {
   itemId: number;
@@ -55,6 +56,12 @@ export const fetchTodoItems = async ({
 
 async function handleFetchTodoItems({ listId, userId }: FetchTodoItemsProps) {
   try {
+    const list = fetchTodoListByListId({ listId, userId });
+
+    if (!list) {
+      throw new Error("List not found");
+    }
+
     const todoItems = await fetchTodoItems({ listId, userId });
 
     return todoItems;
