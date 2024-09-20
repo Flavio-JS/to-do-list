@@ -151,11 +151,17 @@ export async function deleteList({
       throw new Error("Invalid token");
     }
 
-    const lists = await prisma.list.findMany({ where: { listId: { in: listIds } } });
+    const lists = await prisma.list.findMany({
+      where: { listId: { in: listIds } },
+    });
 
     if (lists.length !== listIds.length) {
       throw new Error("Some lists were not found");
     }
+
+    await prisma.item.deleteMany({
+      where: { listId: { in: listIds } },
+    });
 
     await prisma.list.deleteMany({
       where: { listId: { in: listIds }, userId },
@@ -169,4 +175,3 @@ export async function deleteList({
     throw error;
   }
 }
-
