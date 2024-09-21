@@ -77,7 +77,7 @@ export default function CardList({
             <span role="img" aria-label="list" className="mr-2">
               {emoji}
             </span>
-            <span>{listNameInput}</span>
+            <span className="line-clamp-1">{listNameInput}</span>
           </div>
           <div className="flex items-center justify-center gap-2">
             <div className="relative mr-2 inline-block w-10 select-none align-middle">
@@ -133,7 +133,6 @@ export default function CardList({
           "absolute z-10 h-full w-full",
           "bg-gradient-to-r from-[#352432] to-[#241722] opacity-90"
         )}
-        onClick={handleSave}
       />
       <div className="z-20 w-full p-4">
         <div

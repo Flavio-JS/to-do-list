@@ -1,7 +1,16 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { DeleteItemButton } from "@/src/components/DeleteItemButton/DeleteItemButton";
 import { ButtonRainbow } from "@/src/components/ItemList/ButtonRainbow/ButtonRainbow";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+} from "@/src/components/ui/select";
 import { TodoItem } from "@/src/modules/todo-item/use-querys/useGetTodoItems";
 import { useUpdateTodoItem } from "@/src/modules/todo-item/use-querys/useUpdateTodoItem";
 import { Check, Pencil } from "lucide-react";
@@ -51,7 +60,7 @@ export const ItemsList = ({
       itemName: itemNameInput,
       priority: selectedPriority,
     });
-    setIsEditing(!isEditing);
+    setIsEditing(false);
   };
 
   if (!isEditing)
@@ -59,13 +68,29 @@ export const ItemsList = ({
       <div
         className={`mb-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
       >
-        <div className="flex items-center justify-center gap-3">
-          <ButtonRainbow checked={finished} />
-          <span className="text-base text-[#e5e5e5]">{itemNameInput}</span>
+        <div className="flex max-w-[50%] items-center justify-center gap-3">
+          <span
+            className="h-6 w-6"
+            onClick={() => {
+              setFinished(!finished);
+              updateMutation.mutate({
+                itemId,
+                userId,
+                finished: finished,
+              });
+            }}
+          >
+            <ButtonRainbow checked={finished} />
+          </span>
+          <span className="line-clamp-1 text-base text-[#e5e5e5]">
+            {itemNameInput}
+          </span>
         </div>
 
         <div className="flex items-center justify-center gap-3 text-[#FFFBFF]">
-          <span>Created: {createdDate}</span>
+          <span className="line-clamp-1 flex gap-1">
+            <span className="hidden md:block">Created:</span> {createdDate}
+          </span>
           <span
             className="hover:cursor-pointer hover:text-[#FEEDE1]"
             onClick={() => setIsEditing(!isEditing)}
@@ -77,28 +102,70 @@ export const ItemsList = ({
     );
 
   return (
-    <div
-      className={`mb-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
-    >
-      <div className="flex items-center justify-center gap-3">
-        <ButtonRainbow checked={finished} />
-        <span className="text-base text-[#e5e5e5]">{itemNameInput}</span>
-      </div>
-      <div className="flex items-center justify-center gap-3">
-        <DeleteItemButton
-          listId={listId}
-          itemName={itemName}
-          itemId={itemId}
-          userId={userId}
-        />
+    <>
+      <div
+        className={cn(
+          "absolute z-10 h-full w-full",
+          "bg-gradient-to-r from-[#352432] to-[#241722] opacity-90"
+        )}
+      />
+      <div
+        className={`z-20 mb-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
+      >
+        <div className="flex w-max items-center justify-center gap-3">
+          <span
+            className="h-6 w-6"
+            onClick={() => {
+              setFinished(!finished);
+              updateMutation.mutate({
+                itemId,
+                userId,
+                finished: finished,
+              });
+            }}
+          >
+            <ButtonRainbow checked={finished} />
+          </span>
 
-        <span
-          className="text-[#FFFBFF] hover:text-[#FEEDE1]"
-          onClick={handleSave}
-        >
-          <Check />
-        </span>
+          <input
+            type="text"
+            className="text w-full rounded border bg-[#352432] bg-transparent p-2 px-4 py-2 text-[#e5e5e5] focus:outline-none focus:ring-2 focus:ring-[#FF9900]"
+            value={itemNameInput}
+            onChange={(e) => setItemNameInput(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center justify-center gap-3 text-[#FFFBFF]">
+          <Select
+            value={selectedPriority}
+            onValueChange={(value) => {
+              setSelectedPriority(value as "Alta" | "Media" | "Baixa");
+            }}
+          >
+            <SelectTrigger className="min-w-20 rounded border bg-transparent px-2">
+              <span className="text-sm font-semibold">{selectedPriority}</span>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Priority</SelectLabel>
+                <SelectItem value="Baixa">Baixa</SelectItem>
+                <SelectItem value="Media">Media</SelectItem>
+                <SelectItem value="Alta">Alta</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          <DeleteItemButton
+            listId={listId}
+            itemName={itemName}
+            itemId={itemId}
+            userId={userId}
+          />
+
+          <span className="hover:text-[#FEEDE1]" onClick={handleSave}>
+            <Check />
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 };

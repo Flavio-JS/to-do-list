@@ -103,7 +103,7 @@ export default function Todo() {
 
   return (
     <main className="flex h-full flex-1 flex-col">
-      <header className="flex items-center justify-between border-b-2 border-[#54353ECC] pb-4">
+      <header className="flex flex-col gap-2 items-start justify-between border-b-2 border-[#54353ECC] pb-4 md:flex-row md:items-center">
         <h1 className="font-poppins flex max-w-xs items-center gap-6 text-lg font-bold text-[#FEEDE1]">
           <Link href="#" onClick={() => history.back()} className="w-max">
             <ArrowLeftIcon />
@@ -112,7 +112,7 @@ export default function Todo() {
             {todoList.listEmoji} <b>{todoList.listName}</b>
           </span>
         </h1>
-        <div className="flex gap-6">
+        <div className="flex w-full justify-between gap-6 md:w-auto md:justify-normal">
           <Dialog>
             <DialogTrigger>
               <Button className="flex h-6 items-center gap-4 text-[#F25551] hover:text-[#a73a38]">

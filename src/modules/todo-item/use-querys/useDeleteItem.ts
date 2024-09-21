@@ -22,7 +22,7 @@ export const deleteItem = async ({
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      todoItemIds: itemIds,
+      itemIds,
       userId,
     }),
   });
