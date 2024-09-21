@@ -46,8 +46,9 @@ export default function CardList({
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleEmojiChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmoji(event.target.value);
+  const handleEmojiChange = (emoji: string) => {
+    setEmoji(emoji);
+    setShowEmojiPicker(false);
   };
 
   const handleListNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,10 +152,9 @@ export default function CardList({
               <div className="relative">
                 <div className="absolute left-0 top-0">
                   <EmojiPicker
-                    onEmojiClick={(emojiObject) => {
-                      setEmoji(emojiObject.emoji);
-                      setShowEmojiPicker(false);
-                    }}
+                    onEmojiClick={(emojiObject) =>
+                      handleEmojiChange(emojiObject.emoji)
+                    }
                   />
                 </div>
               </div>

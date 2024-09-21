@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { AddNewItemButton } from "@/src/components/AddNewItemButton/AddNewItemButton";
 import { Button } from "@/src/components/Button/Button";
-import { ItemList } from "@/src/components/ItemList/ItemsList";
+import { ItemsList } from "@/src/components/ItemList/ItemsList";
 import {
   Dialog,
   DialogClose,
@@ -39,6 +39,13 @@ export default function Todo() {
     userId: user?.userId as number,
     options: {
       enabled: !!user,
+      select: (data) =>
+        data
+          .slice()
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          ),
     },
   });
 
@@ -162,7 +169,7 @@ export default function Todo() {
       {todoItems?.length ? (
         <section className="relative flex w-full flex-1 flex-col items-center justify-center">
           {todoItems.map((item) => (
-            <ItemList key={item.itemId} {...item} />
+            <ItemsList key={item.itemId} {...item} />
           ))}
         </section>
       ) : (

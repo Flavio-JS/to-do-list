@@ -19,6 +19,7 @@ model User {
   password String
   email    String @unique
   lists    List[]
+  Item     Item[]
 }
 
 model List {
@@ -41,6 +42,8 @@ model Item {
   finished  Boolean  @default(false)
   priority  String   @default("Baixa")
   listId    Int      @map("list_id")
+  userId    Int      @map("user_id")
 
   list List? @relation(fields: [listId], references: [listId])
+  user User? @relation(fields: [userId], references: [userId])
 }

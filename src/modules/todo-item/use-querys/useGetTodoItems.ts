@@ -14,6 +14,7 @@ export type TodoItem = {
   createdAt: Date;
   editedAt: Date;
   listId: number;
+  userId: number;
   priority: string;
   finished: boolean;
 };
