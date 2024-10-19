@@ -6,7 +6,7 @@ export async function POST(
   { params }: { params: { listId: string } }
 ) {
   try {
-    const listId = Number (params.listId);
+    const listId = Number(params.listId);
     const { userId }: { userId: number } = await req.json();
 
     if (isNaN(listId)) {

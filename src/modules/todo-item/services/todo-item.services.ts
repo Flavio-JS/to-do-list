@@ -99,9 +99,9 @@ export async function updateTodoItem({
     const updatedTodoItem: TodoItemType = await prisma.item.update({
       where: { itemId },
       data: {
-        itemName: itemName ? itemName : todoItem.itemName,
-        finished: finished === undefined ? todoItem.finished : finished,
-        priority: priority ? priority : todoItem.priority,
+        itemName: itemName ?? todoItem.itemName,
+        finished: finished ?? todoItem.finished,
+        priority: priority ?? todoItem.priority,
         editedAt: new Date(),
       },
     });

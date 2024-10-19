@@ -46,4 +46,3 @@ export const useCreateTodoItem = (options?: UseCreateTodoItemOptions) => {
     mutationFn: (data: CreateTodoItemProps) => createTodoItem(data),
   });
 };
-

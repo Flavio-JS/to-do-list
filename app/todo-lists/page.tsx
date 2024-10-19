@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { AddNewListButton } from "@/src/components/AddNewListButton/AddNewListButton";
 import { FilterList } from "@/src/components/FilterList/FilterList";
 import { TodoListsSection } from "@/src/components/TodoListSection/TodoListsSection";
+import { Suspense } from "react";
 
 export default function TodoListsPage() {
   return (
@@ -19,10 +20,13 @@ export default function TodoListsPage() {
           </h1>
           <AddNewListButton />
         </div>
-        <FilterList />
+        <Suspense fallback={<p>Loading...</p>}>
+          <FilterList />
+        </Suspense>
       </header>
-
-      <TodoListsSection />
+      <Suspense fallback={<p>Loading...</p>}>
+        <TodoListsSection />
+      </Suspense>
     </main>
   );
 }

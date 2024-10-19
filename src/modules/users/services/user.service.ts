@@ -45,7 +45,10 @@ export async function createUser({
     const hashSalt = env.HASH_SALT;
 
     if (hashSalt === undefined || isNaN(Number(hashSalt))) {
-      return NextResponse.json({ error: "Invalid hash salt configuration." }, { status: 500 });
+      return NextResponse.json(
+        { error: "Invalid hash salt configuration." },
+        { status: 500 }
+      );
     }
 
     const senhaHash = await bcrypt.hash(password, Number(hashSalt));

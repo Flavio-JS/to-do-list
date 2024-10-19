@@ -23,10 +23,9 @@ export const AddNewListButton = () => {
   });
 
   const handleClick = () => {
-    if (userData.user && userData.user.userId) {
-      mutation.mutate({
-        userId: userData.user.userId,
-      });
+    const userId = userData.user?.userId;
+    if (userId) {
+      mutation.mutate({ userId });
     } else {
       console.error("User not found");
     }

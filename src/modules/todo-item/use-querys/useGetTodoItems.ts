@@ -57,7 +57,7 @@ export const fetchTodoItems = async ({
 
 async function handleFetchTodoItems({ listId, userId }: FetchTodoItemsProps) {
   try {
-    const list = fetchTodoListByListId({ listId, userId });
+    const list = await fetchTodoListByListId({ listId, userId });
 
     if (!list) {
       throw new Error("List not found");

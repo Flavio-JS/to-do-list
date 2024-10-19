@@ -10,7 +10,7 @@ export function useTodoListsSection() {
   const priorityParam = searchParams.get("priority");
   const finishedParam = searchParams.get("finished");
   const { data: todoLists = [], isFetching } = useTodoList({
-    userId: user?.userId as number,
+    userId: user?.userId ?? 0,
     options: {
       enabled: !!user,
       select: (data) => {

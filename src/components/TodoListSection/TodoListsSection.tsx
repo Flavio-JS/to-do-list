@@ -3,7 +3,6 @@
 import CardList from "@/src/components/CardList/CardList";
 import { useTodoListsSection } from "@/src/hooks/useTodoListsSection";
 import Rectangle from "@/src/Icons/Rectangle";
-import { useState } from "react";
 
 export const TodoListsSection = () => {
   const { todoLists, isFetching } = useTodoListsSection();

@@ -10,9 +10,6 @@ module.exports = {
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:prettier/recommended",
   ],
-  parserOptions: {
-    project: ["./tsconfig.json"],
-  },
   rules: {
     "no-console": "warn",
     "@typescript-eslint/no-explicit-any": "warn",

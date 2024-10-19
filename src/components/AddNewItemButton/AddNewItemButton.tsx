@@ -27,9 +27,10 @@ export const AddNewItemButton = ({ listId }: AddNewItemButton) => {
   });
 
   const handleClick = () => {
-    if (userData.user && userData.user.userId) {
+    const userId = userData.user?.userId;
+    if (userId) {
       mutation.mutate({
-        userId: userData.user.userId,
+        userId,
         listId,
       });
     } else {

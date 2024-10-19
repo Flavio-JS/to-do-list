@@ -61,7 +61,9 @@ export const DeleteItemButton = ({
           </DialogTitle>
           <DialogDescription>
             This action cannot be undone. It will permanently delete your todo
-            item "<b>{itemName}</b>".
+            item {`"`}
+            <b>{itemName}</b>
+            {`"`}.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

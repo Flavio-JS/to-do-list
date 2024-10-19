@@ -28,7 +28,6 @@ export const ItemsList = ({
   priority,
   userId,
   createdAt,
-  editedAt,
 }: ItemListProps) => {
   const [isEditing, setIsEditing] = useState(false);
 

@@ -112,10 +112,10 @@ export async function updateList({
     const updatedList: ListType = await prisma.list.update({
       where: { listId },
       data: {
-        listName: listName ? listName : lsit.listName,
-        finished: finished === undefined ? lsit.finished : finished,
-        listEmoji: listEmoji ? listEmoji : lsit.listEmoji,
-        priority: priority ? priority : lsit.priority,
+        listName: listName ?? lsit.listName,
+        finished: finished ?? lsit.finished,
+        listEmoji: listEmoji ?? lsit.listEmoji,
+        priority: priority ?? lsit.priority,
       },
     });
 

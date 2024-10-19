@@ -1,7 +1,4 @@
-import {
-  updateList,
-  UpdateListProps,
-} from "@/src/modules/todo-lists/services/todo-list.service";
+import { updateList } from "@/src/modules/todo-lists/services/todo-list.service";
 import { NextResponse } from "next/server";
 
 export type ListBodyProps = {

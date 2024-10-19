@@ -61,7 +61,9 @@ export const DeleteListButton = ({
           </DialogTitle>
           <DialogDescription>
             This action cannot be undone. It will permanently delete your todo
-            list "{listEmoji} <b>{listName}</b>".
+            list {`"`}
+            {listEmoji} <b>{listName}</b>
+            {`"`}.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

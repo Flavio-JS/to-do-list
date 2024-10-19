@@ -42,4 +42,3 @@ export const useDeleteList = (options?: UseDeleteListOptions) => {
     mutationFn: (data: DeleteListProps) => deleteList(data),
   });
 };
-

@@ -1,7 +1,4 @@
-import {
-  updateTodoItem,
-  UpdateTodoItemProps,
-} from "@/src/modules/todo-item/services/todo-item.services";
+import { updateTodoItem } from "@/src/modules/todo-item/services/todo-item.services";
 import { NextResponse } from "next/server";
 
 export type TodoItemBodyProps = {

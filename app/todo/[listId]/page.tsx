@@ -41,11 +41,13 @@ export default function Todo() {
   const priorityParam = searchParams.get("priority");
   const finishedParam = searchParams.get("finished");
 
+  const userId = user?.userId ?? 0;
+
   const { data: todoItems } = useTodoItems({
     listId: Number(listId),
-    userId: user?.userId as number,
+    userId: userId,
     options: {
-      enabled: !!user,
+      enabled: !!userId,
       select: (data) => {
         const listNameParamNormalized = itemNameParam ?? "";
         const priorityParamNormalized = priorityParam ?? "Todas";
@@ -77,9 +79,9 @@ export default function Todo() {
 
   const { data: todoList, isLoading: isLoadingTodoList } = useTodoListByListId({
     listId: Number(listId),
-    userId: user?.userId as number,
+    userId: userId,
     options: {
-      enabled: !!user && !!listId,
+      enabled: !!userId && !!listId,
     },
   });
 
@@ -154,9 +156,11 @@ export default function Todo() {
                   </DialogTitle>
                   <DialogDescription>
                     This action cannot be undone. It will permanently delete
-                    your todo list "{todoList.listEmoji}{" "}
-                    <b>{todoList.listName}</b>". After deleting you will be
-                    redirected to the list page
+                    your todo list {`"`}
+                    {todoList.listEmoji}
+                    <b>{todoList.listName}</b>
+                    {`"`}. After deleting you will be redirected to the list
+                    page
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
@@ -167,10 +171,12 @@ export default function Todo() {
                         "hover:bg-primary-600 focus:ring-primary-300 bg-red-400 px-4 py-2.5 text-sm text-black focus:ring-4 focus:ring-opacity-50"
                       )}
                       onClick={() => {
-                        mutation.mutate({
-                          listIds: [Number(listId)],
-                          userId: user?.userId as number,
-                        });
+                        if (userId) {
+                          mutation.mutate({
+                            listIds: [Number(listId)],
+                            userId: userId,
+                          });
+                        }
                         router.push("/todo-lists");
                       }}
                     >

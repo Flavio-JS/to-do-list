@@ -25,23 +25,21 @@ export function FilterList() {
   const [finished, setFinished] = useState("Todas");
 
   const queryClient = useQueryClient();
-
   const searchParams = useSearchParams();
 
-  const listNameParam = searchParams.get("listName");
-  const priorityParam = searchParams.get("priority");
-  const finishedParam = searchParams.get("finished");
+  const listNameParam = searchParams.get("listName") ?? "";
+  const priorityParam = searchParams.get("priority") ?? "Todas";
+  const finishedParam = searchParams.get("finished") ?? "Todas";
 
   const showClearFilters =
-    (listNameParam && listNameParam !== "") ||
-    (priorityParam && priorityParam !== "Todas") ||
-    (finishedParam && finishedParam !== "Todas");
+    listNameParam !== "" ||
+    priorityParam !== "Todas" ||
+    finishedParam !== "Todas";
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-
     const currentParams = new URLSearchParams(window.location.search);
 
     currentParams.set("listName", form.listName.value);
