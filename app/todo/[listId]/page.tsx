@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { AddNewItemButton } from "@/src/components/AddNewItemButton/AddNewItemButton";
 import { Button } from "@/src/components/Button/Button";
+import { FilterItem } from "@/src/components/FilterItem/FilterItem";
 import { ItemsList } from "@/src/components/ItemList/ItemsList";
 import {
   Dialog,
@@ -26,7 +27,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 export default function Todo() {
   const { listId } = useParams();
@@ -34,18 +35,43 @@ export default function Todo() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+
+  const itemNameParam = searchParams.get("itemName");
+  const priorityParam = searchParams.get("priority");
+  const finishedParam = searchParams.get("finished");
+
   const { data: todoItems } = useTodoItems({
     listId: Number(listId),
     userId: user?.userId as number,
     options: {
       enabled: !!user,
-      select: (data) =>
-        data
-          .slice()
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          ),
+      select: (data) => {
+        const listNameParamNormalized = itemNameParam ?? "";
+        const priorityParamNormalized = priorityParam ?? "Todas";
+        const finishedParamNormalized = finishedParam ?? "Todas";
+
+        const filteredData = data.filter((item) => {
+          const matchesListName =
+            !listNameParamNormalized ||
+            item.itemName
+              .toLowerCase()
+              .includes(listNameParamNormalized.toLowerCase());
+
+          const matchesPriority =
+            priorityParamNormalized === "Todas" ||
+            item.priority === priorityParamNormalized;
+
+          const matchesFinished =
+            finishedParamNormalized === "Todas" ||
+            (finishedParamNormalized === "F" && item.finished === true) ||
+            (finishedParamNormalized === "NF" && item.finished === false);
+
+          return matchesListName && matchesPriority && matchesFinished;
+        });
+
+        return filteredData.slice().reverse();
+      },
     },
   });
 
@@ -102,69 +128,74 @@ export default function Todo() {
   }
 
   return (
-    <main className="flex h-full flex-1 flex-col">
-      <header className="flex flex-col gap-2 items-start justify-between border-b-2 border-[#54353ECC] pb-4 md:flex-row md:items-center">
-        <h1 className="font-poppins flex max-w-xs items-center gap-6 text-lg font-bold text-[#FEEDE1]">
-          <Link href="#" onClick={() => history.back()} className="w-max">
-            <ArrowLeftIcon />
-          </Link>
-          <span className="max-w-full truncate">
-            {todoList.listEmoji} <b>{todoList.listName}</b>
-          </span>
-        </h1>
-        <div className="flex w-full justify-between gap-6 md:w-auto md:justify-normal">
-          <Dialog>
-            <DialogTrigger>
-              <Button className="flex h-6 items-center gap-4 text-[#F25551] hover:text-[#a73a38]">
-                <Trash2 />
-                Delete List
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>
-                  Are you sure you want to delete the todolist?
-                </DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. It will permanently delete your
-                  todo list "{todoList.listEmoji} <b>{todoList.listName}</b>".
-                  After deleting you will be redirected to the list page
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <button
-                    className={cn(
-                      "inline-flex items-center justify-center gap-2 rounded-md transition duration-150 ease-in-out",
-                      "hover:bg-primary-600 focus:ring-primary-300 bg-red-400 px-4 py-2.5 text-sm text-black focus:ring-4 focus:ring-opacity-50"
-                    )}
-                    onClick={() => {
-                      mutation.mutate({
-                        listIds: [Number(listId)],
-                        userId: user?.userId as number,
-                      });
-                      router.push("/todo-lists");
-                    }}
-                  >
-                    Delete
-                  </button>
-                </DialogClose>
-                <DialogClose asChild>
-                  <button
-                    className={cn(
-                      "inline-flex items-center justify-center gap-2 rounded-md transition duration-150 ease-in-out",
-                      "border-primary-500 text-primary-500 hover:bg-primary-50 hover:text-primary-600 focus:ring-primary-300 border px-4 py-2.5 text-sm focus:ring-4 focus:ring-opacity-50"
-                    )}
-                  >
-                    Cancel
-                  </button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+    <main className="relative flex h-full flex-1 flex-col">
+      <header className="z-10 flex flex-col gap-2 border-b-2 border-[#54353ECC] bg-gradient-to-r from-[#352432] to-[#241722] pb-4 pt-4 md:sticky md:top-0 md:items-center">
+        <div className="flex w-full flex-col justify-between gap-2 md:flex-row">
+          <h1 className="font-poppins flex max-w-xs items-center gap-6 text-lg font-bold text-[#FEEDE1]">
+            <Link href="#" onClick={() => history.back()} className="w-max">
+              <ArrowLeftIcon />
+            </Link>
+            <span className="max-w-full truncate">
+              {todoList.listEmoji} <b>{todoList.listName}</b>
+            </span>
+          </h1>
+          <div className="flex w-full items-center justify-between gap-6 md:w-auto md:justify-normal">
+            <Dialog>
+              <DialogTrigger>
+                <Button className="flex h-6 items-center gap-4 text-[#F25551] hover:text-[#a73a38]">
+                  <Trash2 />
+                  Delete List
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    Are you sure you want to delete the todolist?
+                  </DialogTitle>
+                  <DialogDescription>
+                    This action cannot be undone. It will permanently delete
+                    your todo list "{todoList.listEmoji}{" "}
+                    <b>{todoList.listName}</b>". After deleting you will be
+                    redirected to the list page
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <button
+                      className={cn(
+                        "inline-flex items-center justify-center gap-2 rounded-md transition duration-150 ease-in-out",
+                        "hover:bg-primary-600 focus:ring-primary-300 bg-red-400 px-4 py-2.5 text-sm text-black focus:ring-4 focus:ring-opacity-50"
+                      )}
+                      onClick={() => {
+                        mutation.mutate({
+                          listIds: [Number(listId)],
+                          userId: user?.userId as number,
+                        });
+                        router.push("/todo-lists");
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </DialogClose>
+                  <DialogClose asChild>
+                    <button
+                      className={cn(
+                        "inline-flex items-center justify-center gap-2 rounded-md transition duration-150 ease-in-out",
+                        "border-primary-500 text-primary-500 hover:bg-primary-50 hover:text-primary-600 focus:ring-primary-300 border px-4 py-2.5 text-sm focus:ring-4 focus:ring-opacity-50"
+                      )}
+                    >
+                      Cancel
+                    </button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
 
-          <AddNewItemButton listId={Number(listId)} />
+            <AddNewItemButton listId={Number(listId)} />
+          </div>
         </div>
+
+        <FilterItem />
       </header>
       {todoItems?.length ? (
         <section className="relative flex w-full flex-1 flex-col items-center justify-center">

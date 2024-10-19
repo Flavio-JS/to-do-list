@@ -66,7 +66,7 @@ export const ItemsList = ({
   if (!isEditing)
     return (
       <div
-        className={`mb-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
+        className={`my-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
       >
         <div className="flex max-w-[50%] items-center justify-center gap-3">
           <span
@@ -110,7 +110,7 @@ export const ItemsList = ({
         )}
       />
       <div
-        className={`z-20 mb-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
+        className={`z-20 my-2 flex w-full items-center justify-between border-l-4 ${selectedPriority === "Alta" ? "border-red-600" : selectedPriority === "Media" ? "border-yellow-500" : "border-green-500"} rounded-lg bg-[#352432] p-2 px-8 py-4 shadow-lg`}
       >
         <div className="flex w-max items-center justify-center gap-3">
           <span

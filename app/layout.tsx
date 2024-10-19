@@ -19,7 +19,7 @@ export default function RootLayout({
     <QueryClientProvider>
       <html lang="en" className="h-full">
         <body className={`${inter.className} h-full`}>
-          <div className="h-full overflow-y-auto bg-gradient-to-r from-[#352432] to-[#241722] p-[5%]">
+          <div className="h-full overflow-y-auto bg-gradient-to-r from-[#352432] to-[#241722] p-4 pt-0">
             {children}
           </div>
         </body>
