@@ -1,6 +1,6 @@
 import {
   deleteList,
-  DeleteListProps,
+  type DeleteListProps,
 } from "@/src/modules/todo-lists/services/todo-list.service";
 import { NextResponse } from "next/server";
 

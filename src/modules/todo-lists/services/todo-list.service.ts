@@ -1,6 +1,6 @@
 import { jwtVerify } from "jose";
 import { PrismaClient } from "@prisma/client";
-import { ListType } from "@/src/modules/todo-lists/types/ListType";
+import { type ListType } from "@/src/modules/todo-lists/types/ListType";
 
 const prisma = new PrismaClient();
 

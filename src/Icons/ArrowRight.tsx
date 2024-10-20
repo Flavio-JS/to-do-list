@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { type SVGProps } from "react";
 
 const ArrowRight = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (

@@ -16,7 +16,7 @@ import { useTodoListKey } from "@/src/modules/todo-lists/use-querys/useGetTodoLi
 import { useQueryClient } from "@tanstack/react-query";
 import { Filter, Search, SearchX } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 
 export function FilterList() {
   const router = useRouter();

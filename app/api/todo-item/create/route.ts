@@ -1,6 +1,6 @@
 import {
   createTodoItem,
-  CreateTodoItemProps,
+  type CreateTodoItemProps,
 } from "@/src/modules/todo-item/services/todo-item.services";
 import { NextResponse } from "next/server";
 

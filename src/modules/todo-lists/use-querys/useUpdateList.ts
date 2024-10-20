@@ -1,6 +1,6 @@
-import { ListType } from "@/src/modules/todo-lists/types/ListType";
+import { type ListType } from "@/src/modules/todo-lists/types/ListType";
 import { getCookie } from "@/src/utils/getCookies";
-import { MutationOptions, useMutation } from "@tanstack/react-query";
+import { type MutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateListPath = "/api/todo-list/update";
 

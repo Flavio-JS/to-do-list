@@ -1,6 +1,6 @@
 import {
   createList,
-  CreateListProps,
+  type CreateListProps,
 } from "@/src/modules/todo-lists/services/todo-list.service";
 import { NextResponse } from "next/server";
 

@@ -1,6 +1,6 @@
 import {
   getListsByUserId,
-  GetListsByUserIdProps,
+  type GetListsByUserIdProps,
 } from "@/src/modules/todo-lists/services/todo-list.service";
 import { NextResponse } from "next/server";
 

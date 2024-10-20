@@ -1,10 +1,10 @@
 import {
-  QueryKey,
+  type QueryKey,
   useQuery,
-  UseQueryOptions,
-  UseQueryResult,
+  type UseQueryOptions,
+  type UseQueryResult,
 } from "@tanstack/react-query";
-import { QueryFnOptions } from "@/src/lib/react-query";
+import { type QueryFnOptions } from "@/src/lib/react-query";
 import { getCookie } from "@/src/utils/getCookies";
 
 export type TodoList = {

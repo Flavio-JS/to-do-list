@@ -11,7 +11,7 @@ import {
   SelectLabel,
   SelectTrigger,
 } from "@/src/components/ui/select";
-import { TodoItem } from "@/src/modules/todo-item/use-querys/useGetTodoItems";
+import { type TodoItem } from "@/src/modules/todo-item/use-querys/useGetTodoItems";
 import { useUpdateTodoItem } from "@/src/modules/todo-item/use-querys/useUpdateTodoItem";
 import { Check, Pencil } from "lucide-react";
 import { useState } from "react";

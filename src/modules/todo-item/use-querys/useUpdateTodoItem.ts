@@ -1,6 +1,6 @@
-import { TodoItemType } from "@/src/modules/todo-item/types/TodoItemType";
+import { type TodoItemType } from "@/src/modules/todo-item/types/TodoItemType";
 import { getCookie } from "@/src/utils/getCookies";
-import { MutationOptions, useMutation } from "@tanstack/react-query";
+import { type MutationOptions, useMutation } from "@tanstack/react-query";
 
 export const updateTodoItemPath = "/api/todo-item/update";
 

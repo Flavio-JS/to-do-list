@@ -1,5 +1,5 @@
 import EmojiPicker from "emoji-picker-react";
-import { ListType } from "@/src/modules/todo-lists/types/ListType";
+import { type ListType } from "@/src/modules/todo-lists/types/ListType";
 import { useUpdateList } from "@/src/modules/todo-lists/use-querys/useUpdateList";
 import { Check, ChevronRight, Pencil } from "lucide-react";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { MutationOptions, useMutation } from "@tanstack/react-query";
+import { type MutationOptions, useMutation } from "@tanstack/react-query";
 
 export type User = {
   userId: number;
